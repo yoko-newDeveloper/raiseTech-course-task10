@@ -46,12 +46,13 @@
 
 - `var`:Java10以降で変数宣言で型推論を利用する(変数定義の際自動的に型決定される)->動的型付けではないため一度varで定義した変数に別の方の値を再代入することはできない
 
-- `@Size`:"サイズは{min}から{max}の間でなければなりません"
+- `@Size`:"{min} から {max} の間のサイズにしてください"
 - `.extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)`
     - `extracting `:AssertJライブラリの一部で、リストやコレクションから特定の要素を抽出して検証する
     - `violations`:リストの各要素に対して、ConstraintViolationオブジェクト(nameやarea)を文字列に変換し、ConstraintViolationオブジェクト(
       バリデーションエラーが発生した際に生成されるオブジェクト)からエラーメッセージを取得する
     - `containsExactlyInAnyOrder`:期待されるプロパティパス(バリデーションエラーが発生した場所)、エラーメッセージと実際の結果が一致することを検証する
+- Formフィールドのアノテーション:messageは全てのアノテーションに書くか書かないかを統一すること
 
 - STRICT:日付と時刻を厳密に解決する
 - LENIENT:日付けと時刻を厳密ではない方法で解決する
@@ -59,3 +60,4 @@
 ### エラー対策
 
 - 期待値と違うエラー: デバッグして`response`を確認する
+- 期待値が日本語、実際の値が英語のためアサーションエラー:テストコードに`Locale.setDefault(Locale.JAPANESE);`を書く

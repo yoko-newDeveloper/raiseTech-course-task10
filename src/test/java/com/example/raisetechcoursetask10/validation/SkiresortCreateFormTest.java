@@ -6,7 +6,6 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -22,21 +21,15 @@ public class SkiresortCreateFormTest {
     // 一番最初に一度だけ実行される
     @BeforeAll
     public static void setUpValidator() {
+        Locale.setDefault(Locale.JAPANESE);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
     @Nested
     class NameTest {
-        @BeforeEach
-        void setUp() {
-            // テストケース内でのローカライズを設定（日本語を指定）
-            Locale.setDefault(Locale.JAPANESE);
-        }
-
         @Test
         public void nameに1文字未満を登録した時バリデーションエラーとなること() {
-//            Locale.setDefault(Locale.JAPAN);
 
             SkiresortCreateForm createForm = new SkiresortCreateForm("", "Canada", "The scenery was very beautiful");
             var violations = validator.validate(createForm);
@@ -46,7 +39,7 @@ public class SkiresortCreateFormTest {
                     .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
                     .containsExactlyInAnyOrder(
                             tuple("name", "空白は許可されていません"),
-                            tuple("name", "1文字以上20文字以下で入力してください")
+                            tuple("name", "1 から 20 の間のサイズにしてください")
                     );
         }
 
@@ -72,7 +65,7 @@ public class SkiresortCreateFormTest {
             assertThat(violations).hasSize(1);
             assertThat(violations)
                     .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(tuple("name", "1文字以上20文字以下で入力してください"));
+                    .containsExactlyInAnyOrder(tuple("name", "1 から 20 の間のサイズにしてください"));
         }
     }
 }
