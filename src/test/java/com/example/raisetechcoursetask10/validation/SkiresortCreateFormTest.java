@@ -29,7 +29,7 @@ public class SkiresortCreateFormTest {
     @Nested
     class NameTest {
         @Test
-        public void nameに1文字未満を登録した時バリデーションエラーとなること() {
+        public void nameが1文字未満である時バリデーションエラーとなること() {
 
             SkiresortCreateForm createForm = new SkiresortCreateForm("", "Canada", "The scenery was very beautiful");
             var violations = validator.validate(createForm);
@@ -44,21 +44,21 @@ public class SkiresortCreateFormTest {
         }
 
         @Test
-        public void nameに1文字登録した時バリデーションエラーとならないこと() {
+        public void nameが1文字である時バリデーションエラーとならないこと() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("a", "Canada", "The scenery was very beautiful");
             var violations = validator.validate(createForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void nameに20文字登録した時バリデーションエラーとならないこと() {
+        public void nameが20文字である時バリデーションエラーとならないこと() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("aaaaaaaaaaaaaaaaaaaa", "Canada", "The scenery was very beautiful");
             var violations = validator.validate(createForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void nameに21文字登録した時バリデーションエラーとなること() {
+        public void nameが21文字である時バリデーションエラーとなること() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("aaaaaaaaaaaaaaaaaaaaa", "Canada", "The scenery was very beautiful");
             var violations = validator.validate(createForm);
             // バリデーションエラーが1つ発生することの検証
