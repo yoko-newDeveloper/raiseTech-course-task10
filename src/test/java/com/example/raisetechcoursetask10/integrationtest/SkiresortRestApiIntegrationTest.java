@@ -131,7 +131,7 @@ public class SkiresortRestApiIntegrationTest {
                                     {
                                           "id": 3,
                                           "name": "Treble Cone",
-                                          "area": "NewZealand",
+                                          "area": "New Zealand",
                                           "customerEvaluation": "Features a long course with views of Lake Wanaka"
                                     }                                      
                                     """))
@@ -153,7 +153,6 @@ public class SkiresortRestApiIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
                                     {
-                                        "id": 100,
                                         "name": "Blue Mountain",
                                         "area": "Canada",
                                         "customerEvaluation": "All of the lodges and ski houses are cute, like a dreamland"

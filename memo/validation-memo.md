@@ -35,7 +35,7 @@
 ### Validator
 
 - SkiresortUpdateFormにバリデーション設定
-- @Size:1文字〜20文字 エラーメッセージも記述する
+- @Size:1文字〜20文字
 - @BeforeAll:付与されたstaticメソッドは全テストが実行される前に実行されるメソッド
 
 - `import static org.assertj.core.api.Assertions.assertThat;`:手動で追加
@@ -46,7 +46,7 @@
 
 - `var`:Java10以降で変数宣言で型推論を利用する(変数定義の際自動的に型決定される)->動的型付けではないため一度varで定義した変数に別の方の値を再代入することはできない
 
-- `@Size`:"{min} から {max} の間のサイズにしてください"
+- `@Size`デフォルトメッセージ:"{min} から {max} の間のサイズにしてください"
 - `.extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)`
     - `extracting `:AssertJライブラリの一部で、リストやコレクションから特定の要素を抽出して検証する
     - `violations`:リストの各要素に対して、ConstraintViolationオブジェクト(nameやarea)を文字列に変換し、ConstraintViolationオブジェクト(
@@ -56,6 +56,11 @@
 
 - STRICT:日付と時刻を厳密に解決する
 - LENIENT:日付けと時刻を厳密ではない方法で解決する
+
+### Controller注意
+
+try catchで囲むことによって全てのExceptionをcatchしてしまう
+バリデーション以外の全てのException(DB系のエラーなど)全てHTTPステータスコード400 "1文字以上20文字以下で入力してください" というメッセージでレスポンスされてしまう
 
 ### エラー対策
 
