@@ -39,51 +39,52 @@ class SkiresortMapperTest {
                     );
         }
 
-        @Nested
-        class FindByIdTest {
-            @Test
-            @DataSet(value = "datasets/ut/skiresort.yml")
-            @Transactional
-            void 指定したidのスキーリゾートが取得できること() {
-                assertThat(skiresortMapper.findById(1))
-                        .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
-            }
-
-            @Test
-            @DataSet(value = "datasets/ut/create-skiresort.yml")
-            @Transactional
-            void 新規のスキーリゾートが登録できること() {
-                assertThat(skiresortMapper.findById(1))
-                        .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
-            }
-        }
-        
-        @Nested
-        class UpdateTest {
-            @Test
-            @DataSet(value = "datasets/ut/before-update-skiresort.yml")
-            @ExpectedDataSet(value = "datasets/ut/update-skiresort.yml")
-            @Transactional
-            void 指定したidのスキーリゾートが更新できること() {
-                Skiresort skiresort = new Skiresort(1, "天元台", "山形県", "圧雪していないようで、ほぼ不正地");
-                skiresortMapper.updateSkiresort(skiresort);
-            }
-
-            @Test
-            @DataSet(value = "datasets/ut/skiresort.yml")
-            @ExpectedDataSet(value = "datasets/ut/after-update-skiresort.yml")
-            @Transactional
-            void 更新時に指定したidが存在しないときテーブルのレコードが更新されないこと() {
-                Skiresort skiresortUpdate = new Skiresort(4, "栂池高原", "長野県", "幅1kmの初心者に最適なコースがある");
-                skiresortMapper.updateSkiresort(skiresortUpdate);
-            }
-        }
-
         @Test
         @DataSet(value = "datasets/ut/empty-skiresort.yml")
         @Transactional
         void レコードが存在しない場合に空のListが取得できること() {
             assertThat(skiresortMapper.findAll().isEmpty());
+        }
+    }
+
+    @Nested
+    class FindByIdTest {
+        @Test
+        @DataSet(value = "datasets/ut/skiresort.yml")
+        @Transactional
+        void 指定したidのスキーリゾートが取得できること() {
+            assertThat(skiresortMapper.findById(1))
+                    .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
+        }
+
+        @Test
+        @DataSet(value = "datasets/ut/create-skiresort.yml")
+        @Transactional
+        void 新規のスキーリゾートが登録できること() {
+            assertThat(skiresortMapper.findById(1))
+                    .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
+        }
+
+    }
+    
+    @Nested
+    class UpdateTest {
+        @Test
+        @DataSet(value = "datasets/ut/before-update-skiresort.yml")
+        @ExpectedDataSet(value = "datasets/ut/update-skiresort.yml")
+        @Transactional
+        void 指定したidのスキーリゾートが更新できること() {
+            Skiresort skiresort = new Skiresort(1, "天元台", "山形県", "圧雪していないようで、ほぼ不正地");
+            skiresortMapper.updateSkiresort(skiresort);
+        }
+
+        @Test
+        @DataSet(value = "datasets/ut/skiresort.yml")
+        @ExpectedDataSet(value = "datasets/ut/after-update-skiresort.yml")
+        @Transactional
+        void 更新時に指定したidが存在しないときテーブルのレコードが更新されないこと() {
+            Skiresort skiresortUpdate = new Skiresort(4, "栂池高原", "長野県", "幅1kmの初心者に最適なコースがある");
+            skiresortMapper.updateSkiresort(skiresortUpdate);
         }
     }
 
