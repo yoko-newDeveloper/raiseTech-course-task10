@@ -48,10 +48,7 @@ class SkiresortMapperTest {
                 assertThat(skiresortMapper.findById(1))
                         .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
             }
-        }
 
-        @Nested
-        class CreateTest {
             @Test
             @DataSet(value = "datasets/ut/create-skiresort.yml")
             @Transactional
@@ -60,7 +57,7 @@ class SkiresortMapperTest {
                         .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
             }
         }
-
+        
         @Nested
         class UpdateTest {
             @Test
