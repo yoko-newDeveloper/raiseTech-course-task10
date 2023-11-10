@@ -38,6 +38,13 @@ class SkiresortMapperTest {
                             new Skiresort(3, "イエティ", "静岡県", "10月オープンで日本一早い。激混み。")
                     );
         }
+
+        @Test
+        @DataSet(value = "datasets/ut/empty-skiresort.yml")
+        @Transactional
+        void レコードが存在しない場合に空のListが取得できること() {
+            assertThat(skiresortMapper.findAll().isEmpty());
+        }
     }
 
     @Nested
@@ -51,21 +58,22 @@ class SkiresortMapperTest {
         }
 
         @Test
-        @DataSet(value = "datasets/ut/empty-skiresort.yml")
+        @DataSet(value = "datasets/ut/create-skiresort.yml")
         @Transactional
-        void レコードが存在しない場合に空のListが取得できること() {
-            assertThat(skiresortMapper.findAll().isEmpty());
+        void 指定したIDの新規のスキーリゾートが登録できること() {
+            assertThat(skiresortMapper.findById(1))
+                    .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
         }
     }
 
     @Nested
     class CreateTest {
         @Test
-        @DataSet(value = "datasets/ut/create-skiresort.yml")
+        @DataSet(value = "datasets/ut/skiresort.yml")
         @Transactional
-        void 新規のスキーリゾートが登録できること() {
-            assertThat(skiresortMapper.findById(1))
-                    .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
+        void 新規スキーリゾートが登録できること() {
+            Skiresort skiresort = new Skiresort(4, "湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
+            skiresortMapper.insertSkiresort(skiresort);
         }
     }
 
