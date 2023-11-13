@@ -1,6 +1,5 @@
-package com.example.raisetechcoursetask10.validation;
+package com.example.raisetechcoursetask10.controller.form;
 
-import com.example.raisetechcoursetask10.controller.form.SkiresortCreateForm;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -14,8 +13,7 @@ import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
-public class SkiresortCreateFormTest {
-
+class SkiresortCreateFormTest {
     private static Validator validator;
 
     // 一番最初に一度だけ実行される
