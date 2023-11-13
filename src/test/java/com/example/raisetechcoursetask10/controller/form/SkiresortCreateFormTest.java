@@ -70,6 +70,38 @@ class SkiresortCreateFormTest {
     }
 
     @Nested
+    class NameNotBlankTest {
+
+        @Test
+        public void nameが半角ブランクである時バリデーションエラーとなること() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm(" ", "Canada", "The scenery was very beautiful");
+            var violations = validator.validate(createForm);
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(tuple("name", "空白は許可されていません"));
+        }
+
+        @Test
+        public void nameがnullである時バリデーションエラーとなること() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm(null, "Canada", "The scenery was very beautiful");
+            var violations = validator.validate(createForm);
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(tuple("name", "空白は許可されていません"));
+        }
+
+        @Test
+        public void nameが全角ブランクである時バリデーションエラーとならないこと() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm("　", "Canada", "The scenery was very beautiful");
+            var violations = validator.validate(createForm);
+            assertThat(violations).isEmpty();
+
+        }
+    }
+
+    @Nested
     class AreaSizeTest {
 
         @Test
@@ -117,6 +149,7 @@ class SkiresortCreateFormTest {
 
     @Nested
     class AreaNotBlankTest {
+
         @Test
         public void areaが半角ブランクである時バリデーションエラーとなること() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", " ", "Australia's widest ski slope");
@@ -128,7 +161,7 @@ class SkiresortCreateFormTest {
         }
 
         @Test
-        public void areaがNuLLである時バリデーションエラーとなること() {
+        public void areaがnuLLである時バリデーションエラーとなること() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", null, "Australia's widest ski slope");
             var violations = validator.validate(createForm);
             assertThat(violations).hasSize(1);
