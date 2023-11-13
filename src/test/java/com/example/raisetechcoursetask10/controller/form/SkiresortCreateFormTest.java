@@ -25,7 +25,7 @@ class SkiresortCreateFormTest {
     }
 
     @Nested
-    class NameTest {
+    class NameSizeTest {
         @Test
         public void nameが1文字未満である時バリデーションエラーとなること() {
 
@@ -70,7 +70,7 @@ class SkiresortCreateFormTest {
     }
 
     @Nested
-    class AreaTest {
+    class AreaSizeTest {
 
         @Test
         public void areaが1文字未満である時バリデーションエラーとなること() {
@@ -112,6 +112,36 @@ class SkiresortCreateFormTest {
                     .containsExactlyInAnyOrder(
                             tuple("area", "1 から 20 の間のサイズにしてください")
                     );
+        }
+    }
+
+    @Nested
+    class AreaNotBlankTest {
+        @Test
+        public void areaが半角ブランクである時バリデーションエラーとなること() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", " ", "Australia's widest ski slope");
+            var violations = validator.validate(createForm);
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(tuple("area", "空白は許可されていません"));
+        }
+
+        @Test
+        public void areaがNuLLである時バリデーションエラーとなること() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", null, "Australia's widest ski slope");
+            var violations = validator.validate(createForm);
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(tuple("area", "空白は許可されていません"));
+        }
+
+        @Test
+        public void areaが全角ブランクである時バリデーションエラーとならないこと() {
+            SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", "　", "Australia's widest ski slope");
+            var violations = validator.validate(createForm);
+            assertThat(violations).isEmpty();
         }
     }
 }
