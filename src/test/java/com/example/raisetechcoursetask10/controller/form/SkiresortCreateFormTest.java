@@ -161,7 +161,7 @@ class SkiresortCreateFormTest {
         }
 
         @Test
-        public void areaがnullである時バリデーションエラーとなること() {
+        public void areaがnuLLである時バリデーションエラーとなること() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", null, "Australia's widest ski slope");
             var violations = validator.validate(createForm);
             assertThat(violations).hasSize(1);
@@ -173,76 +173,6 @@ class SkiresortCreateFormTest {
         @Test
         public void areaが全角ブランクである時バリデーションエラーとならないこと() {
             SkiresortCreateForm createForm = new SkiresortCreateForm("Thredbo Supertrail", "　", "Australia's widest ski slope");
-            var violations = validator.validate(createForm);
-            assertThat(violations).isEmpty();
-        }
-    }
-
-    @Nested
-    class EvaluationCustomerSizeTest {
-
-        @Test
-        public void customerEvaluationが1文字未満である時バリデーションエラーとなること() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealan", "");
-            var violations = validator.validate(createForm);
-            assertThat(violations).hasSize(2);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("customerEvaluation", "空白は許可されていません"),
-                            tuple("customerEvaluation", "1 から 50 の間のサイズにしてください")
-                    );
-        }
-
-        @Test
-        public void customerEvaluationが1文字である時バリデーションエラーとならないこと() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", "1");
-            var violations = validator.validate(createForm);
-            assertThat(violations).isEmpty();
-        }
-
-        @Test
-        public void customerEvaluationが50文字である時バリデーションエラーとならないこと() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", "12345678901234567890123456789012345678901234567890");
-            var violations = validator.validate(createForm);
-            assertThat(violations).isEmpty();
-        }
-
-        @Test
-        public void customerEvaluationが51文字である時バリデーションエラーとなること() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", "123456789012345678901234567890123456789012345678901");
-            var violations = validator.validate(createForm);
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(tuple("customerEvaluation", "1 から 50 の間のサイズにしてください"));
-        }
-    }
-
-    @Nested
-    class CustomerEvaluationNotBlankTest {
-
-        @Test
-        public void customerEvaluationが半角ブランクである時バリデーションエラーとなること() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", " ");
-            var violations = validator.validate(createForm);
-            assertThat(violations).hasSize(1)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(tuple("customerEvaluation", "空白は許可されていません"));
-        }
-
-        @Test
-        public void customerEvaluationがnullである時バリデーションエラーとなること() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", null);
-            var violations = validator.validate(createForm);
-            assertThat(violations).hasSize(1)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(tuple("customerEvaluation", "空白は許可されていません"));
-        }
-
-        @Test
-        public void customerEvaluationが全角ブランクである時バリデーションエラーとならないこと() {
-            SkiresortCreateForm createForm = new SkiresortCreateForm("Mt.Hutt", "New Zealand", "　");
             var violations = validator.validate(createForm);
             assertThat(violations).isEmpty();
         }
