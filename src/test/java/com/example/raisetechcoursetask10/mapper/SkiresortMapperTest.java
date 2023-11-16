@@ -58,7 +58,7 @@ class SkiresortMapperTest {
         }
 
         @Test
-        @DataSet(value = "datasets/ut/create-skiresort.yml")
+        @DataSet(value = "datasets/ut/skiresort.yml")
         @Transactional
         void 指定したIDの新規のスキーリゾートが登録できること() {
             assertThat(skiresortMapper.findById(1))
@@ -70,6 +70,7 @@ class SkiresortMapperTest {
     class CreateTest {
         @Test
         @DataSet(value = "datasets/ut/skiresort.yml")
+        @ExpectedDataSet(value = "datasets/ut/create-skiresort.yml", ignoreCols = "id")
         @Transactional
         void 新規スキーリゾートが登録できること() {
             Skiresort skiresort = new Skiresort(4, "湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
