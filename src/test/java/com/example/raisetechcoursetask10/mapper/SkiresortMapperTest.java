@@ -67,7 +67,7 @@ class SkiresortMapperTest {
         @Transactional
         void 新規スキーリゾートが登録できること() {
             // idは指定しない
-            Skiresort skiresort = new Skiresort(0, "湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
+            Skiresort skiresort = new Skiresort("湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
             skiresortMapper.insertSkiresort(skiresort);
         }
     }
