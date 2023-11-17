@@ -11,3 +11,7 @@ skiresort:
     name: "イエティ"
     area: "静岡県"
     customerEvaluation: "10月オープンで日本一早い。激混み。"
+  - id: 4
+    name: "湯の丸"
+    area: "長野県"
+    customerEvaluation: "急斜面は道路を渡って行かなければならない。"

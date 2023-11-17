@@ -56,23 +56,18 @@ class SkiresortMapperTest {
             assertThat(skiresortMapper.findById(1))
                     .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
         }
-
-        @Test
-        @DataSet(value = "datasets/ut/create-skiresort.yml")
-        @Transactional
-        void 指定したIDの新規のスキーリゾートが登録できること() {
-            assertThat(skiresortMapper.findById(1))
-                    .contains(new Skiresort(1, "安比高原", "岩手県", "いつも天気が悪い。"));
-        }
     }
 
     @Nested
     class CreateTest {
         @Test
         @DataSet(value = "datasets/ut/skiresort.yml")
+        // idは比較対象外
+        @ExpectedDataSet(value = "datasets/ut/create-skiresort.yml", ignoreCols = "id")
         @Transactional
         void 新規スキーリゾートが登録できること() {
-            Skiresort skiresort = new Skiresort(4, "湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
+            // idは指定しない
+            Skiresort skiresort = new Skiresort("湯の丸", "長野県", "急斜面は道路を渡って行かなければならない。");
             skiresortMapper.insertSkiresort(skiresort);
         }
     }

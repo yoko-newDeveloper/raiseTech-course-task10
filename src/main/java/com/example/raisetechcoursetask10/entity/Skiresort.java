@@ -16,6 +16,14 @@ public class Skiresort {
         this.customerEvaluation = customerEvaluation;
     }
 
+    // ID指定しないコンストラクタ
+    public Skiresort(String name, String area, String customerEvaluation) {
+        this.id = 0;
+        this.name = name;
+        this.area = area;
+        this.customerEvaluation = customerEvaluation;
+    }
+
     public int getId() {
         return this.id;
     }
