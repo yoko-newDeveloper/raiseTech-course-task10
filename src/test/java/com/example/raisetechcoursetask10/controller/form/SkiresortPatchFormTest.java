@@ -120,4 +120,54 @@ class SkiresortPatchFormTest {
 
         }
     }
+
+    @Nested
+    class HalfWidthSpaceTest {
+
+        @Test
+        public void nameが半角スペースの時にバリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(" ", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(
+                            tuple("nameOrAreaOrCustomerEvaluation",
+                                    "name, area, customerEvaluationのいずれかが空白です")
+                    );
+        }
+
+        @Test
+        public void areaが半角スペースの時にバリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", " ", "Ski the World Heritage Site of the Canadian Rockies");
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(
+                            tuple("nameOrAreaOrCustomerEvaluation",
+                                    "name, area, customerEvaluationのいずれかが空白です")
+                    );
+        }
+
+        @Test
+        public void customerEvaluationが半角スペースの時にバリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", " ");
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+
+            assertThat(violations).hasSize(1);
+            assertThat(violations)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(
+                            tuple("nameOrAreaOrCustomerEvaluation",
+                                    "name, area, customerEvaluationのいずれかが空白です")
+                    );
+        }
+
+    }
 }
