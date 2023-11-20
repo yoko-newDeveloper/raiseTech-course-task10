@@ -18,7 +18,7 @@ class SkiresortPatchFormTest {
     private static Validator validator;
 
     @BeforeAll
-    public static void setValidator() {
+    public static void setUpValidator() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
