@@ -41,10 +41,26 @@ class SkiresortPatchFormTest {
 
         @Test
         public void nameのみがnullの時にバリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, "Canada", "Ski the World Heritage Site of the Canadian Rockies");
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
+        }
+
+        @Test
+        public void areaのみがnullの時にバリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", null, "Ski the World Heritage Site of the Canadian Rockies");
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+            assertThat(violations).isEmpty();
+        }
+
+        @Test
+        public void customerEvaluationの時にバリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Loise", "Canada", null);
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+            assertThat(violations);
         }
     }
 }
