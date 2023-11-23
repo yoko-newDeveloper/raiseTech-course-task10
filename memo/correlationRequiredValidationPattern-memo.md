@@ -24,3 +24,16 @@ if ((name == null || name.isBlank()) && (area == null || area.isBlank()) && (cus
 // どちらにも当てはまらない場合にtrueを返す->全ての変数がnull,空文字,半角スペースではない場合
 return true;
 ```
+
+```
+.extracting(
+    violation -> violation.getPropertyPath().toString(), // プロパティのパスを文字列に変換
+    ConstraintViolation::getMessage // 制約違反のメッセージを取得
+)
+.containsExactlyInAnyOrder(
+    tuple(
+        "nameOrAreaOrCustomerEvaluation", // 期待されるプロパティのパス
+        "name, area, customerEvaluationのいずれかを入力してください" // 期待されるエラーメッセージ
+    )
+);
+```

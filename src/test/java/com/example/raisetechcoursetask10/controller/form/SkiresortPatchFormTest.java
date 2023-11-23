@@ -60,7 +60,7 @@ class SkiresortPatchFormTest {
             SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Loise", "Canada", null);
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations);
+            assertThat(violations).isEmpty();
         }
     }
 }
