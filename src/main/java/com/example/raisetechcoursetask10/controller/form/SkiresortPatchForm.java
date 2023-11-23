@@ -26,10 +26,10 @@ public class SkiresortPatchForm {
         return customerEvaluation;
     }
 
-    @AssertTrue(message = "name, area, customerEvaluationのいずれかが空白です")
+    @AssertTrue(message = "name, area, customerEvaluationのいずれかを入力してください")
     public boolean isNameOrAreaOrCustomerEvaluation() {
-        // name,area,customerEvaluationがnull又は空文字または半角スペースの時にfalseを返す
-        if (!(name == null || area == null || customerEvaluation == null)) {
+        // name,area,customerEvaluationのいずれか1つでもnull又は空文字または半角スペースの時にfalseを返す
+        if ((name == null || name.isBlank()) && (area == null || area.isBlank()) && (customerEvaluation == null || customerEvaluation.isBlank())) {
             return false;
         } else return !name.isBlank() && !area.isBlank() && !customerEvaluation.isBlank();
     }

@@ -25,149 +25,26 @@ class SkiresortPatchFormTest {
 
     @Nested
     class NullTest {
+
         @Test
-        public void nameがnullの時にバリデーションエラーとなること() {
+        public void nameとareaとcustomerEvaluationの全てがnullの時にバリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, null, null);
+
+            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
+            assertThat(violations).hasSize(1)
+                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
+                    .containsExactlyInAnyOrder(
+                            tuple("nameOrAreaOrCustomerEvaluation",
+                                    "name, area, customerEvaluationのいずれかを入力してください")
+                    );
+        }
+
+        @Test
+        public void nameのみがnullの時にバリデーションエラーとならないこと() {
             SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, "Canada", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です"
-                            )
-                    );
+            assertThat(violations).isEmpty();
         }
-
-        @Test
-        public void areaがnullの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", null, "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です"
-                            )
-                    );
-        }
-
-        @Test
-        public void customerEvaluationがnullの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", null);
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-    }
-
-    @Nested
-    class EmptyTest {
-
-        @Test
-        public void nameが空文字の時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-
-        @Test
-        public void areaが空文字の時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "", "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-
-        @Test
-        public void customerEvaluationが空文字の時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", "");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-
-        }
-    }
-
-    @Nested
-    class HalfWidthSpaceTest {
-
-        @Test
-        public void nameが半角スペースの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(" ", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-
-        @Test
-        public void areaが半角スペースの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", " ", "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-
-        @Test
-        public void customerEvaluationが半角スペースの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", " ");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-
-            assertThat(violations).hasSize(1);
-            assertThat(violations)
-                    .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
-                    .containsExactlyInAnyOrder(
-                            tuple("nameOrAreaOrCustomerEvaluation",
-                                    "name, area, customerEvaluationのいずれかが空白です")
-                    );
-        }
-
     }
 }

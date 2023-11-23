@@ -1,7 +1,7 @@
 package com.example.raisetechcoursetask10.controller;
 
 import com.example.raisetechcoursetask10.controller.form.SkiresortCreateForm;
-import com.example.raisetechcoursetask10.controller.form.SkiresortUpdateForm;
+import com.example.raisetechcoursetask10.controller.form.SkiresortPatchForm;
 import com.example.raisetechcoursetask10.controller.response.SkiresortResponse;
 import com.example.raisetechcoursetask10.entity.Skiresort;
 import com.example.raisetechcoursetask10.service.SkiresortService;
@@ -53,7 +53,7 @@ public class SkiresortController {
     }
 
     @PatchMapping("/skiresorts/{id}")
-    public ResponseEntity<Map<String, String>> update(@PathVariable("id") int id, @RequestBody @Valid SkiresortUpdateForm form) {
+    public ResponseEntity<Map<String, String>> update(@PathVariable("id") int id, @RequestBody @Valid SkiresortPatchForm form) {
 
         // id以外のSkiresortUpdateFormの情報を使用してレコードを更新する
         skiresortService.updateSkiresort(id, form.getName(), form.getArea(), form.getCustomerEvaluation());
