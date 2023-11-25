@@ -1,10 +1,46 @@
 # バリデーションパターンを整理する
 
-|       value        |  NG  | NG | NG  |   OK   |    OK    |  OK  |
-|:------------------:|:----:|:--:|:---:|:------:|:--------:|:----:| 
-|        name        | null | "" | " " | niseko |    ""    | null |
-|        area        | null | "" | " " |  null  | hokkaido |  ""  |
-| customerEvaluation | null | "" | " " |   ""   |   " "    | good |
+### 全てのテストパターン
+
+NGパターン
+
+|       value        |  NG  | NG | NG  | 
+|:------------------:|:----:|:--:|:---:|
+|        name        | null | "" | " " | 
+|        area        | null | "" | " " |
+| customerEvaluation | null | "" | " " | 
+
+- nameOKパターン
+
+|       value        |  OK   |   OK   |  OK   |  OK   |   OK   |  OK   |  OK   |   OK   |  OK   |  OK   |  OK   |  OK   |  OK   |  OK   |  OK   |
+|:------------------:|:-----:|:------:|:-----:|:-----:|:------:|:-----:|:-----:|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|        name        | goryu | goryu  | goryu | goryu | goryu  | goryu | goryu | goryu  | goryu | goryu | goryu | goryu | goryu | goryu | goryu |
+|        area        | null  | nagano | null  |  ""   | nagano |  ""   |  " "  | nagano |  " "  | null  |  ""   | null  |  " "  |  ""   |  " "  |
+| customerEvaluation | null  |  null  | good  |  ""   |   ""   | good  |  " "  |  " "   | good  |  ""   | null  |  " "  | null  |  " "  |  ""   |
+
+- areaOKパターン
+
+|       value        |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   |   OK   | OK | OK |
+|:------------------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:--:|:--:|
+|        name        |  null  |  null  |   ""   |   ""   |  " "   |  " "   |  null  |   ""   |  null  |  " "   |   ""   |  " "   |        |    |    |
+|        area        | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano | nagano |
+| customerEvaluation |  null  |  good  |   ""   |  good  |  " "   |  good  |   ""   |  null  |  " "   |  null  |  " "   |   ""   |
+
+- customerEvaluationOKパターン
+
+|       value        |  OK  |  OK  |  OK  |  OK  |  OK  |  OK  |  OK  |  OK  |  OK  |
+|:------------------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|        name        | null |  ""  | " "  | null |  ""  | " "  | null |  ""  | " "  |
+|        area        | null |  ""  | " "  |  ""  | null | null | " "  | " "  |  ""  |
+| customerEvaluation | good | good | good | good | good | good | good | good | good |
+
+### 実装パターン
+
+|       value        |  NG  | NG | NG  |  OK   |   OK   |  OK  |   OK   |  OK   |   OK   |   OK   |  OK   |   OK   |  OK   |   OK   |  OK  |
+|:------------------:|:----:|:--:|:---:|:-----:|:------:|:----:|:------:|:-----:|:------:|:------:|:-----:|:------:|:-----:|:------:|:----:|
+|        name        | null | "" | " " | goryu | goryu  |  ""  |   ""   | goryu | goryu  |  " "   | goryu | goryu  | goryu |  null  |  ""  |
+|        area        | null | "" | " " | null  | nagano |  ""  | nagano |  ""   | nagano | nagano |  " "  | nagano | null  | nagano | " "  |
+| customerEvaluation | null | "" | " " | good  |  null  | good |  good  | good  |   ""   |  good  | good  |  " "   |  ""   |  " "   | good |
 
 - 論理演算子：||（論理和）
     - true || false:どちらかがtrueであれば全体がtrue
