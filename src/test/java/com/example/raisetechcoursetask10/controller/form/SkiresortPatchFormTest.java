@@ -50,7 +50,7 @@ class SkiresortPatchFormTest {
 
         @Test
         void areaのみが半角スペースの時バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("goryu", " ", "Ski the World Heritage Site of the Canadian Rockies");
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", " ", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
