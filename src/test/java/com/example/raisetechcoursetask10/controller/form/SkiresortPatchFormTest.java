@@ -100,7 +100,7 @@ class SkiresortPatchFormTest {
 
         @Test
         public void customerEvaluationのみが空文字の時バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Loise", "Canada", "");
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", "");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
