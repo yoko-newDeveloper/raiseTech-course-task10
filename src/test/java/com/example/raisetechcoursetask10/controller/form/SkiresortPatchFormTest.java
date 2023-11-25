@@ -24,14 +24,16 @@ class SkiresortPatchFormTest {
     }
 
     @Nested
-    class NullTest {
+    class EmptyStringTest {
 
         @Test
-        public void nameとareaとcustomerEvaluationの全てがnullの時にバリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, null, null);
+        public void nameとareaとcustomerEvaluationがすべて空文字である時バリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "", "");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).hasSize(1)
+            assertThat(violations).hasSize(1);
+            // 制約違反(ConstraintViolation)情報で、どのプロパティに関連しているか、エラーメッセージが何かを検証する
+            assertThat(violations)
                     .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
                     .containsExactlyInAnyOrder(
                             tuple("nameOrAreaOrCustomerEvaluation",
@@ -40,24 +42,24 @@ class SkiresortPatchFormTest {
         }
 
         @Test
-        public void nameのみがnullの時にバリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, "Canada", "Ski the World Heritage Site of the Canadian Rockies");
+        public void nameのみが空文字の時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void areaのみがnullの時にバリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", null, "Ski the World Heritage Site of the Canadian Rockies");
+        public void areaのみが空文字の時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void customerEvaluationの時にバリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", null);
+        public void customerEvaluationのみが空文字の時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Loise", "Canada", "");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
