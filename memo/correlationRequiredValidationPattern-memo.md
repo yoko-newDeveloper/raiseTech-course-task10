@@ -36,11 +36,11 @@ NGパターン
 
 ### 実装パターン
 
-|       value        |  NG  | NG | NG  |  OK   |   OK   |  OK  |   OK   |  OK   |   OK   |   OK   |  OK   |   OK   |  OK   |   OK   |  OK  |
-|:------------------:|:----:|:--:|:---:|:-----:|:------:|:----:|:------:|:-----:|:------:|:------:|:-----:|:------:|:-----:|:------:|:----:|
-|        name        | null | "" | " " | goryu | goryu  |  ""  |   ""   | goryu | goryu  |  " "   | goryu | goryu  | goryu |  null  |  ""  |
-|        area        | null | "" | " " | null  | nagano |  ""  | nagano |  ""   | nagano | nagano |  " "  | nagano | null  | nagano | " "  |
-| customerEvaluation | null | "" | " " | good  |  null  | good |  good  | good  |   ""   |  good  | good  |  " "   |  ""   |  " "   | good |
+|       value        |  NG  | NG | NG  |  OK   |   OK   |   OK   |  OK   |   OK   |   OK   |  OK   |   OK   |  OK   |   OK   |  OK  |
+|:------------------:|:----:|:--:|:---:|:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|:------:|:-----:|:------:|:----:|
+|        name        | null | "" | " " | goryu | goryu  |   ""   | goryu | goryu  |  " "   | goryu | goryu  | goryu |  null  |  ""  |
+|        area        | null | "" | " " | null  | nagano | nagano |  ""   | nagano | nagano |  " "  | nagano | null  | nagano | " "  |
+| customerEvaluation | null | "" | " " | good  |  null  |  good  | good  |   ""   |  good  | good  |  " "   |  ""   |  " "   | good |
 
 - 論理演算子：||（論理和）
     - true || false:どちらかがtrueであれば全体がtrue
