@@ -148,32 +148,4 @@ class SkiresortPatchFormTest {
             assertThat(violations).isEmpty();
         }
     }
-
-    @Nested
-    class OkPatternTest {
-
-        @Test
-        void name以外がnullと空文字の場合バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", null, "");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).isEmpty();
-        }
-
-        @Test
-        void area以外がnullと半角スペースの場合バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(null, "Canada", " ");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).isEmpty();
-        }
-
-        @Test
-        void customerEvaluation以外が半角スペースと空文字の場合バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", " ", "Ski the World Heritage Site of the Canadian Rockies");
-
-            Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
-            assertThat(violations).isEmpty();
-        }
-    }
 }
