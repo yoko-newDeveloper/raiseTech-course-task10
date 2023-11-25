@@ -24,15 +24,14 @@ class SkiresortPatchFormTest {
     }
 
     @Nested
-    class EmptyStringTest {
+    class BlankTest {
 
         @Test
-        public void nameとareaとcustomerEvaluationがすべて空文字である時バリデーションエラーとなること() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "", "");
+        public void nameとareaとcustomerEvaluationがすべて半角スペースである時バリデーションエラーとなること() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(" ", " ", " ");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).hasSize(1);
-            // 制約違反(ConstraintViolation)情報で、どのプロパティに関連しているか、エラーメッセージが何かを検証する
             assertThat(violations)
                     .extracting(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage)
                     .containsExactlyInAnyOrder(
@@ -42,24 +41,24 @@ class SkiresortPatchFormTest {
         }
 
         @Test
-        public void nameのみが空文字の時バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
+        void nameのみが半角スペースの時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm(" ", "Canada", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void areaのみが空文字の時バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "", "Ski the World Heritage Site of the Canadian Rockies");
+        void areaのみが半角スペースの時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("goryu", " ", "Ski the World Heritage Site of the Canadian Rockies");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
         }
 
         @Test
-        public void customerEvaluationのみが空文字の時バリデーションエラーとならないこと() {
-            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Loise", "Canada", "");
+        void customerEvaluationのみが半角スペースの時バリデーションエラーとならないこと() {
+            SkiresortPatchForm skiresortPatchForm = new SkiresortPatchForm("Lake Louise", "Canada", " ");
 
             Set<ConstraintViolation<SkiresortPatchForm>> violations = validator.validate(skiresortPatchForm);
             assertThat(violations).isEmpty();
