@@ -28,11 +28,9 @@ public class SkiresortPatchForm {
 
     @AssertTrue(message = "name, area, customerEvaluationのいずれかを入力してください")
     public boolean isNameOrAreaOrCustomerEvaluation() {
-        // name,area,customerEvaluationのいずれか1つでもnull又は空文字または半角スペースの時にfalse(バリデーションエラー)を返す
+        // name,area,customerEvaluationのすべてがnull又は空文字または半角スペースの時にfalse(バリデーションエラー)を返す
         if ((name == null || name.isBlank()) && (area == null || area.isBlank()) && (customerEvaluation == null || customerEvaluation.isBlank())) {
             return false;
-//        } else if (name.isBlank() || area.isBlank() || customerEvaluation.isBlank()) {
-//            return true;
         } else {
             return true;
         }
